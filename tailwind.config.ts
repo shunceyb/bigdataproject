@@ -12,6 +12,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        razer: ["Rajdhani", "sans-serif"], // Custom Razer-like font
+      },
     },
   },
   plugins: [],

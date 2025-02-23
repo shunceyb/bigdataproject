@@ -3,6 +3,7 @@ import { Provider } from  "./provider";
 import "./globals.css";
 
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -11,7 +12,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Provider>
-        <body>{children}</body>
+        <body>
+          {children}
+          </body>
       </Provider>
     </html>
   );
