@@ -7,14 +7,17 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Razer from "@/app/images/background.png";
 
-const Navbar = () => {
+// Import Lucide-react Icons
+import { ListChecks, Headphones, Laptop, Gamepad2, ShieldCheck } from "lucide-react";
+
+const ShoppingNavbar = ({ setSelectedCategory }: { setSelectedCategory: (category: string | null) => void }) => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [scrollY, setScrollY] = useState(0);
 
   // Parallax effect applied to the background (NOT the navbar)
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY * 0.3); // Adjust speed if needed
+    const handleScroll = () => setScrollY(window.scrollY * 0.3);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -27,8 +30,7 @@ const Navbar = () => {
   return (
     <>
       {/* Parallax Background */}
-      <div
-        className="absolute top-0 left-0 w-full h-[50vh] bg-cover bg-center z-[-1]"
+      <div className="absolute top-0 left-0 w-full h-[50vh] bg-cover bg-center z-[-1]"
         style={{
           transform: `translateY(${scrollY}px)`,
         }}
@@ -37,32 +39,39 @@ const Navbar = () => {
       {/* Sticky Navbar */}
       <nav className="sticky top-0 z-50 flex items-center justify-between px-8 py-4 bg-black
                      backdrop-blur-lg shadow-md transition-all duration-300">
-        {/* Logo (Does NOT move) */}
+        {/* Logo */}
         <div className="flex items-center gap-4">
           <Link href="/">
             <Image src={Razer} width={150} height={150} alt="Navbar logo" />
           </Link>
         </div>
 
-        {/* Navbar Links */}
+        {/* Shopping Navbar Icons */}
         <div className="hidden md:flex gap-6 justify-center">
-          {["Home", "About", "Products", "Contact"].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="text-green-400 hover:text-green-600 transition duration-300"
+          {[
+            { icon: <ListChecks size={24} />, category: null, label: "All Products" },
+            { icon: <Headphones size={24} />, category: "Peripherals", label: "Peripherals" },
+            { icon: <Laptop size={24} />, category: "Laptops", label: "Laptops" },
+            { icon: <Gamepad2 size={24} />, category: "GamingGear", label: "Gaming Gear" }
+          ].map((item) => (
+            <button
+              key={item.label}
+              onClick={() => setSelectedCategory(item.category)}
+              className="text-green-400 hover:text-green-600 transition duration-300 flex flex-col items-center"
             >
-              {item}
-            </a>
+              {item.icon}
+              <span className="text-xs mt-1">{item.label}</span>
+            </button>
           ))}
-          
-          {/* Admin Panel Link (Only for Admins) */}
+
+          {/* Admin Panel (Only for Admins) */}
           {session?.user?.role === "admin" && (
             <Link
               href="/admin"
-              className="text-red-500 font-semibold hover:text-red-700 transition duration-300"
+              className="text-red-500 font-semibold flex flex-col items-center hover:text-red-700 transition duration-300"
             >
-              Admin Panel
+              <ShieldCheck size={24} />
+              <span className="text-xs mt-1">Admin Panel</span>
             </Link>
           )}
         </div>
@@ -95,5 +104,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
-
+export default ShoppingNavbar;

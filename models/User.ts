@@ -1,18 +1,19 @@
-import mongoose, {Schema, model} from 'mongoose'
-
+import mongoose, { Schema, model } from "mongoose";
 
 export interface UserDocument {
-    _id: string;
-    email: string;
-    password: string;
-    name: string;
-    phone: string;
-    image: string;
-    createdAt: Date;
-    updatedAt: Date;
-  }
+  _id: string;
+  email: string;
+  password: string;
+  name: string;
+  phone?: string;
+  image?: string;
+  role: "user" | "admin";  // Added role field
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-  const UserSchema = new Schema<UserDocument>({
+const UserSchema = new Schema<UserDocument>(
+  {
     email: {
       type: String,
       unique: true,
@@ -24,17 +25,22 @@ export interface UserDocument {
     },
     password: {
       type: String,
-      required: true
+      required: true,
     },
     name: {
       type: String,
-      required: [true, "Name is required"]
-    }
+      required: [true, "Name is required"],
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user", // Default role is user
+    },
   },
   {
     timestamps: true,
   }
 );
 
-const  User  =  mongoose.models?.User  ||  model<UserDocument>('User', UserSchema);
-export  default  User;
+const User = mongoose.models.User || model<UserDocument>("User", UserSchema);
+export default User

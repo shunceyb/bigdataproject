@@ -2,6 +2,8 @@
 import Navbar from "./components/Navbar";
 import HomeSection from "./components/Introduction";
 import AboutSection from "./components/About";
+import LinkProduct from "./components/LinkProduct";
+import Footer from "./components/Footer";
 
 const Home = () => {
   
@@ -10,8 +12,8 @@ const Home = () => {
       <Navbar />
       <HomeSection />
       <AboutSection />
-      
-    
+      <LinkProduct />
+      <Footer />
     </div>
   );
 }
