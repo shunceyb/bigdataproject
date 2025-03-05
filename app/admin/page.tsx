@@ -9,6 +9,7 @@ type Product = {
   category: string;
   quantity: number;
   imageUrl: string;
+  description: string
 };
 
 export default function AdminProducts() {
@@ -16,6 +17,7 @@ export default function AdminProducts() {
   const [form, setForm] = useState<Product>({
     name: "",
     category: "",
+    description: "",
     quantity: 0,
     imageUrl: "",
   });
@@ -48,7 +50,7 @@ export default function AdminProducts() {
       });
     }
 
-    setForm({ name: "", category: "", quantity: 0, imageUrl: "" });
+    setForm({ name: "", category: "", quantity: 0, imageUrl: "", description: "" });
     setEditingProductId(null);
     fetchProducts();
   };
@@ -56,6 +58,7 @@ export default function AdminProducts() {
   const handleEdit = (product: Product) => {
     setForm({
       name: product.name,
+      description: product.description,
       category: product.category,
       quantity: product.quantity,
       imageUrl: product.imageUrl,
@@ -103,6 +106,13 @@ export default function AdminProducts() {
             placeholder="Name"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
+            className="w-full p-3 rounded-md bg-gray-800 text-white border border-green-500 focus:ring-2 focus:ring-green-400"
+          />
+          <input
+            type="text"
+            placeholder="Description"
+            value={form.description}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
             className="w-full p-3 rounded-md bg-gray-800 text-white border border-green-500 focus:ring-2 focus:ring-green-400"
           />
           <input
@@ -156,6 +166,7 @@ export default function AdminProducts() {
                   {p.name}
                 </h3>
                 <p className="text-gray-400">{p.category}</p>
+                <p className="text-gray-400">Product Description: {p.description}</p>
                 <p className="text-white font-semibold">Quantity: {p.quantity}</p>
                 <div className="flex justify-between mt-4">
                   <button

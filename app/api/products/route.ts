@@ -20,6 +20,7 @@ export async function POST(req: Request) {
       category: data.category,
       quantity: data.quantity,
       imageUrl: data.imageUrl,
+      description: data.description
     });
   
     return NextResponse.json(newProduct, { status: 201 });

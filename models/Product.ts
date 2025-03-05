@@ -5,11 +5,13 @@ interface IProduct extends Document {
   category: string;
   quantity: number;
   imageUrl: string;
+  description: string;
 }
 
 const ProductSchema = new Schema<IProduct>({
   name: { type: String, required: true },
   category: { type: String, required: true },
+  description: { type: String, required: true },
   quantity: { type: Number, required: true },
   imageUrl: { type: String, required: true },
 });

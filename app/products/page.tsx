@@ -11,6 +11,7 @@ type Product = {
   category: string;
   quantity: number;
   imageUrl: string;
+  description: string;
 };
 
 export default function ProductsPage() {
@@ -69,6 +70,7 @@ export default function ProductsPage() {
                 />
                 <h3 className="text-xl font-bold mt-2 text-green-400">{product.name}</h3>
                 <p className="text-gray-400">{product.category}</p>
+                <p className="text-gray-400">Product Description: {product.description}</p>
                 <p className="text-white font-semibold">Quantity: {product.quantity}</p>
               </div>
             ))
