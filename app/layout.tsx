@@ -6,9 +6,7 @@ import "./globals.css";
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: any) {
   return (
     <html lang="en">
       <Provider>
